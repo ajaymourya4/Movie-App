@@ -1,4 +1,4 @@
-package com.ajaymourya.moviesapp
+package com.ajaymourya.movieapp
 
 import org.junit.Test
 

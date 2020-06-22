@@ -1,4 +1,4 @@
-package com.ajaymourya.moviesapp
+package com.ajaymourya.movieapp
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -20,10 +20,16 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url 'https://maven.google.com' }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    retrofitVersion = '2.7.2'
+    okhttpLoggingInterceptorVersion = '4.0.0'
+    pagingVersion = '3.0.0-alpha01'
 }
