@@ -9,22 +9,11 @@ import com.ajaymourya.movieapp.R
 import com.ajaymourya.movieapp.api.MovieService
 import com.ajaymourya.movieapp.data.MovieRepository
 
-class MovieListActivity : AppCompatActivity() {
-
-    private lateinit var viewModel: MovieListViewModel
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        viewModel =
-            ViewModelProvider(this, ViewModelFactory(MovieRepository(MovieService.create()))).get(
-                MovieListViewModel::class.java
-            )
-
-        viewModel.getMoviesByGenre().observe(this, Observer {
-            Log.e("result", " ${it}")
-        })
 
     }
 }

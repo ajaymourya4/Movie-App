@@ -3,6 +3,7 @@ package com.ajaymourya.movieapp.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ajaymourya.movieapp.data.MovieRepository
+import com.ajaymourya.movieapp.ui.movielist.MovieListViewModel
 
 /**
  * Factory for ViewModels
