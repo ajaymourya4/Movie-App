@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.ajaymourya.movieapp.MovieApplication
 import com.ajaymourya.movieapp.R
 import com.ajaymourya.movieapp.api.MovieService
 import com.ajaymourya.movieapp.data.MovieRepository

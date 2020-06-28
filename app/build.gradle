@@ -32,6 +32,7 @@ android {
     dataBinding {
         enabled = true
     }
+
 }
 
 dependencies {
@@ -63,4 +64,12 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
+    // Dagger Core
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    //Dagger Android
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 }

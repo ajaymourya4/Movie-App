@@ -9,11 +9,12 @@ import androidx.paging.liveData
 import com.ajaymourya.movieapp.api.MovieService
 import com.ajaymourya.movieapp.model.Movie
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 /**
  * Repository class that works with local and remote data sources.
  */
-class MovieRepository(private val service: MovieService) {
+class MovieRepository @Inject constructor(private val service: MovieService) {
 
     /**
      * get movies by genreId, exposed as a stream of data that will emit

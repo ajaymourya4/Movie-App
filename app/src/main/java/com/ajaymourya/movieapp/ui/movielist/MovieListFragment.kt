@@ -8,19 +8,24 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.ajaymourya.movieapp.MovieApplication
 import com.ajaymourya.movieapp.R
 import com.ajaymourya.movieapp.api.MovieService
 import com.ajaymourya.movieapp.data.MovieRepository
 import com.ajaymourya.movieapp.databinding.MovieListFragmentBinding
+import com.ajaymourya.movieapp.di.Injectable
 import com.ajaymourya.movieapp.ui.ViewModelFactory
+import javax.inject.Inject
 
-class MovieListFragment : Fragment() {
+class MovieListFragment : Fragment(), Injectable {
 
     companion object {
         fun newInstance() = MovieListFragment()
     }
 
-    private lateinit var viewModel: MovieListViewModel
+    @Inject
+    lateinit var viewModel: MovieListViewModel
+
     private lateinit var binding: MovieListFragmentBinding
     private lateinit var movieAdapter: MovieAdapter
 
@@ -32,16 +37,8 @@ class MovieListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel =
-            ViewModelProvider(this, ViewModelFactory(MovieRepository(MovieService.create()))).get(
-                MovieListViewModel::class.java
-            )
         movieAdapter = MovieAdapter()
         binding.moviesList.adapter = movieAdapter
         viewModel.getMovies().observe(viewLifecycleOwner, Observer {
