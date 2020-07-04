@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.ajaymourya.moviesapp"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -72,4 +72,8 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    //Material Design Components
+    implementation "com.google.android.material:material:$materialVersion"
+
 }

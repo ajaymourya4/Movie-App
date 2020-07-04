@@ -1,21 +1,18 @@
 package com.ajaymourya.movieapp.ui.movielist
 
+import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.ajaymourya.movieapp.MovieApplication
 import com.ajaymourya.movieapp.R
-import com.ajaymourya.movieapp.api.MovieService
-import com.ajaymourya.movieapp.data.MovieRepository
 import com.ajaymourya.movieapp.databinding.MovieListFragmentBinding
 import com.ajaymourya.movieapp.di.Injectable
-import com.ajaymourya.movieapp.ui.ViewModelFactory
 import javax.inject.Inject
+
 
 class MovieListFragment : Fragment(), Injectable {
 
@@ -33,7 +30,11 @@ class MovieListFragment : Fragment(), Injectable {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // To enable toolbar menu item
+        setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.movie_list_fragment, container, false)
+        // Need to set when using toolbar
+        (activity as AppCompatActivity).setSupportActionBar(binding.movieListToolbar)
         return binding.root
     }
 
@@ -46,5 +47,36 @@ class MovieListFragment : Fragment(), Injectable {
                 movieAdapter.submitData(lifecycle, it)
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.movie_list_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.theme_change -> {
+                toggleTheme()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun toggleTheme() {
+        val currentNightMode =
+            resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                // Night mode is not active, we're using the light theme
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+            Configuration.UI_MODE_NIGHT_YES -> {
+                // Night mode is active, we're using dark theme
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 }
