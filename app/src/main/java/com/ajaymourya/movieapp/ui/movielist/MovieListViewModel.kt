@@ -1,6 +1,5 @@
 package com.ajaymourya.movieapp.ui.movielist
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
@@ -12,15 +11,14 @@ class MovieListViewModel @Inject constructor(private val repository: MovieReposi
     ViewModel() {
 
     init {
-        Log.e("View Model", " created")
+
     }
 
     fun getMovies(): LiveData<PagingData<Movie>> {
-        return repository.getGenreResultStream(878)
+        return repository.getGenreResultStream(53)
     }
 
     override fun onCleared() {
         super.onCleared()
-        Log.e("View Model", " destroyed")
     }
 }

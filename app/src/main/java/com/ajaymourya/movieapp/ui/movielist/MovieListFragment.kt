@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.ajaymourya.movieapp.R
 import com.ajaymourya.movieapp.databinding.MovieListFragmentBinding
 import com.ajaymourya.movieapp.di.Injectable
@@ -47,6 +48,9 @@ class MovieListFragment : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MovieListViewModel::class.java)
         movieAdapter = MovieAdapter()
+        // Handle scroll state on configuration change
+        movieAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.moviesList.adapter = movieAdapter
         viewModel.getMovies().observe(viewLifecycleOwner, Observer {
             if (it != null) {
@@ -84,15 +88,5 @@ class MovieListFragment : Fragment(), Injectable {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.e("onDestroy", " onDestroy")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.e("onCreate", " onCreate")
     }
 }
