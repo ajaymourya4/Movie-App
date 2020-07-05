@@ -2,15 +2,18 @@ package com.ajaymourya.movieapp.ui.movielist
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.ajaymourya.movieapp.R
 import com.ajaymourya.movieapp.databinding.MovieListFragmentBinding
 import com.ajaymourya.movieapp.di.Injectable
+import com.ajaymourya.movieapp.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 
@@ -21,6 +24,8 @@ class MovieListFragment : Fragment(), Injectable {
     }
 
     @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     lateinit var viewModel: MovieListViewModel
 
     private lateinit var binding: MovieListFragmentBinding
@@ -40,6 +45,7 @@ class MovieListFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MovieListViewModel::class.java)
         movieAdapter = MovieAdapter()
         binding.moviesList.adapter = movieAdapter
         viewModel.getMovies().observe(viewLifecycleOwner, Observer {
@@ -78,5 +84,15 @@ class MovieListFragment : Fragment(), Injectable {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.e("onDestroy", " onDestroy")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e("onCreate", " onCreate")
     }
 }
