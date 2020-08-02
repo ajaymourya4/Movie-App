@@ -8,8 +8,11 @@ import com.ajaymourya.movieapp.model.Movie
 
 class MovieViewHolder(val binding: MovieListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(movie: Movie) {
+    fun bind(movie: Movie, onItemClicked: (Movie) -> Unit) {
         binding.movie = movie
+        binding.root.setOnClickListener {
+            onItemClicked(movie)
+        }
         binding.executePendingBindings()
     }
 

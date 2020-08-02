@@ -1,7 +1,11 @@
 package com.ajaymourya.movieapp.api
 
+import androidx.lifecycle.LiveData
+import com.ajaymourya.movieapp.model.MovieDetail
+import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -22,6 +26,12 @@ interface MovieService {
         @Query("api_key") apiKey: String = "0ce1bcf1a1a069c002a789ddbb67c47b",
         @Query("page") page: Int = 1
     ): MovieGenreResponse
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetailById(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = "0ce1bcf1a1a069c002a789ddbb67c47b"
+    ): Response<MovieDetail>
 
     companion object {
         private const val BASE_URL = "https://api.themoviedb.org/3/"

@@ -10,19 +10,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.ajaymourya.movieapp.R
 import com.ajaymourya.movieapp.databinding.MovieListFragmentBinding
 import com.ajaymourya.movieapp.di.Injectable
+import com.ajaymourya.movieapp.model.Movie
 import com.ajaymourya.movieapp.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
-
 class MovieListFragment : Fragment(), Injectable {
-
-    companion object {
-        fun newInstance() = MovieListFragment()
-    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -47,7 +45,7 @@ class MovieListFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MovieListViewModel::class.java)
-        movieAdapter = MovieAdapter()
+        movieAdapter = MovieAdapter(this::onItemClicked)
         // Handle scroll state on configuration change
         movieAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
@@ -88,5 +86,12 @@ class MovieListFragment : Fragment(), Injectable {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
+    }
+
+    private fun onItemClicked(movie: Movie) {
+        Log.e("onItemClicked", " $movie")
+        val movieId = movie.id
+        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieId)
+        this.findNavController().navigate(action)
     }
 }

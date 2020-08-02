@@ -2,6 +2,7 @@ package com.ajaymourya.movieapp.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.ajaymourya.movieapp.ui.moviedetail.MovieDetailViewModel
 import com.ajaymourya.movieapp.ui.movielist.MovieListViewModel
 import com.ajaymourya.movieapp.viewmodel.ViewModelFactory
 import dagger.Binds
@@ -18,5 +19,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MovieListViewModel::class)
     abstract fun bindMovieListViewModel(movieListViewModel: MovieListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieDetailViewModel::class)
+    abstract fun bindMovieDetailViewModel(movieDetailViewModel: MovieDetailViewModel): ViewModel
 
 }
